@@ -2,12 +2,12 @@ FROM node
 
 WORKDIR /app
 
-COPY package*.json ./
+RUN git clone https://github.com/micheleottonello-min/SomeBankingApp temp_repo \
+    && mv temp_repo/frontend/* . \
+    && rm -rf temp_repo
 
 RUN npm install
 
-COPY . .
+EXPOSE 80
 
-EXPOSE 4200
-
-CMD ["npm", "start", "--", "--host", "0.0.0.0"]
+CMD ["npm", "start", "--", "--host", "0.0.0.0", "--port", "80"]
